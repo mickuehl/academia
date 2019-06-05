@@ -21,8 +21,10 @@ class App
       c.summary = ''
       c.description = ''
       c.example 'description', 'command example'
-      c.option '--dest DIR', String, 'Destination directory'
+      c.option '--dest FILE', String, 'Destination directory'
+      c.option '--offset NUM', Integer, 'Page offset'
       c.action do |args, options|
+        options.default :offset => 0
 
         begin
           extract = File.open(options.dest, "w")  
@@ -32,10 +34,13 @@ class App
           annotations = doc.xpath('/annotationSet/annotation')
           
           current_page = ""
+          page_num = 0
+          
           annotations.each do |a|
             page = a.at('title').text.split(',')[0]
-            if current_page != page 
-              extract.write("# #{page}\n")
+            if current_page != page
+              page_num = page.split(' ')[1].to_i + options.offset
+              extract.write("# Page #{page_num}\n")
               current_page = page
             end
             extract.write("#{a.at('target').at('fragment').at('text').text}\n\n")
