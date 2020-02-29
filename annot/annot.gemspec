@@ -18,7 +18,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ['lib']
 
   gem.add_development_dependency 'bundler', '~> 1.17'
-  gem.add_development_dependency 'rake', '~> 12.3'
+  gem.add_development_dependency 'rake', '~> 13.0'
 
   gem.add_dependency 'commander', '~> 4.4.7'
   gem.add_dependency 'nokogiri', '~> 1.10'
